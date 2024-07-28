@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthCredentialsDto } from './dto/AuthCredentials.dto';
 import { ResetPasswordDto } from './dto/ResetPassword.dto';
 import { ApiBody, ApiConflictResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiProperty, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { User } from '../schemas/User.schema';
 import { ForgetPasswordDto } from './dto/ForgetPassword.dto';
+import { RequestGuard } from '../guards/request.guard';
 
 @ApiTags('Users')
 @Controller('users')
@@ -19,6 +20,7 @@ export class UsersController {
   }
 
   @Post('/signin')
+  @UseGuards(RequestGuard)
   @ApiOkResponse({description:'User object as response with token',type:User})
   @ApiUnauthorizedResponse({description:'Invalid credentials'})
   signin(@Body() authCredentialsDto:AuthCredentialsDto) {

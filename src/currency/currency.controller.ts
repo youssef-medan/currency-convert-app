@@ -7,17 +7,13 @@ import { User } from '../schemas/User.schema';
 import { ErrorsInterceptor } from '../global interceptors/errors.interceptor';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { Transaction } from '../schemas/Transaction.schema';
+import { RequestGuard } from '../guards/request.guard';
 
 @ApiTags('Currency')
 @ApiBearerAuth('JWT-auth')
 @Controller('currency')
 export class CurrencyController {
   constructor(private readonly currencyService: CurrencyService) {}
-
-  @ApiTags('Currency')
-  @ApiBearerAuth('JWT-auth')
-
-
 
   @Get('/convert')
   @UseInterceptors(ErrorsInterceptor)
@@ -35,7 +31,7 @@ export class CurrencyController {
 
   @Get('my-transactions')
   @UseInterceptors(ErrorsInterceptor)
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard(),RequestGuard)
   @ApiOkResponse({description:'return array of user`s Transactions',type:[Transaction]})
   @ApiUnauthorizedResponse({description:'Unauthorized'})
   async myTransaction(@GetUser() user:User): Promise<any> {
