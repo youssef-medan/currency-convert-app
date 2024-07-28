@@ -24,6 +24,45 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## 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
+## introduction
+
+app features
+- signup and save user to DB
+- convert between currencis (from -> to > amount)
+- save all transaction to current loggedin user
+- retrive all my transactions with its date
+- reset password with link sent to your email
+- unit testing
+- email microservice
+- jwt-auth
+- external APIs for currency convert
+- every request reutrn with time the request takes
+
+currency-covert-app 
+has five main routes :
+/users/signup
+/user/sign
+/user/forgetpassword
+/user/resetPassword/:resetToken
+/currency/convert
+/currency/my-transactions
+
+additional route :
+/api (swagger documentation)
+
+## get ready
+
+1- in app folder > /microservices/micro-email create .env and set SENDGRID_SECRET
+2- an main folder npm run start:all (this command run app and microservices) npm run start:dev (currency-convert app only) npm start start:email (email microservice only)
+3- signup with real email (so you can recive welcome email & password reset link)
+4- start use app -> covert between currencies and get my-transactions
+
+
+
+
+
+ 
+
 
 ## Description
 
