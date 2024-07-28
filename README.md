@@ -38,24 +38,24 @@ app features
 - external APIs for currency convert
 - every request reutrn with time the request takes
 
-currency-covert-app 
+# currency-covert-app 
 has five main routes :
-/users/signup
-/user/sign
-/user/forgetpassword
-/user/resetPassword/:resetToken
-/currency/convert
-/currency/my-transactions
+- /users/signup
+- /user/sign
+- /user/forgetpassword
+- /user/resetPassword/:resetToken
+- /currency/convert
+- /currency/my-transactions
 
 additional route :
-/api (swagger documentation)
+- /api (swagger documentation)
 
 ## get ready
 
-1- in app folder > /microservices/micro-email create .env and set SENDGRID_SECRET
-2- an main folder npm run start:all (this command run app and microservices) npm run start:dev (currency-convert app only) npm start start:email (email microservice only)
-3- signup with real email (so you can recive welcome email & password reset link)
-4- start use app -> covert between currencies and get my-transactions
+- 1- in app folder > /microservices/micro-email create .env and set SENDGRID_SECRET
+- 2- an main folder npm run start:all (this command run app and microservices) npm run start:dev (currency-convert app only) npm start start:email (email microservice only)
+- 3- signup with real email (so you can recive welcome email & password reset link)
+- 4- start use app -> covert between currencies and get my-transactions
 
 
 
