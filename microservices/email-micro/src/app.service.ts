@@ -8,7 +8,7 @@ export class AppService {
     sendgrid.setApiKey(process.env.SENDGRID_SECRET);
   }
   getHello(): string {
-    return 'Hello World!';
+    return 'email service runnung...';
   }
   async handleTaskCreated(taskInfo: TaskCreatedEvent) {
     const { title, description, username, email } = taskInfo;

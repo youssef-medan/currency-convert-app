@@ -1,6 +1,5 @@
 import { Controller, Get, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { CurrencyService } from './currency.service';
-import { ConvertCurrencyDto } from './dto/convertCurrency.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../decorator/get-user.decorator';
 import { User } from '../schemas/User.schema';
@@ -8,6 +7,8 @@ import { ErrorsInterceptor } from '../global interceptors/errors.interceptor';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { Transaction } from '../schemas/Transaction.schema';
 import { RequestGuard } from '../guards/request.guard';
+// import { ConvertCurrencyDto } from 'src/currency/dto/ConvertCurrency.dto';
+import { ConvertCurrencyDto } from './dto/convertCurrency.dto';
 
 @ApiTags('Currency')
 @ApiBearerAuth('JWT-auth')
@@ -17,7 +18,7 @@ export class CurrencyController {
 
   @Get('/convert')
   @UseInterceptors(ErrorsInterceptor)
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @ApiOkResponse({description:'return amount and its converted valueas response as Transaction object and save it',type:Transaction})
   @ApiNotFoundResponse({description:'Not Found! make sure you use avaliable currencies or try again later'})
   @ApiBadRequestResponse({description:'invalid transaction'})
@@ -31,7 +32,7 @@ export class CurrencyController {
 
   @Get('my-transactions')
   @UseInterceptors(ErrorsInterceptor)
-  @UseGuards(AuthGuard(),RequestGuard)
+  @UseGuards(AuthGuard('jwt'),RequestGuard)
   @ApiOkResponse({description:'return array of user`s Transactions',type:[Transaction]})
   @ApiUnauthorizedResponse({description:'Unauthorized'})
   async myTransaction(@GetUser() user:User): Promise<any> {

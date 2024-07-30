@@ -10,7 +10,7 @@ export class TransactionModelService {
     async createTransaction(transactionModel:Model<Transaction>,transactionInfo:Transaction){
         const transaction = await transactionModel.create(transactionInfo)
         if(!transaction) throw new BadRequestException('invalid transaction')
-        return transaction
+        return {transaction}
 
     }
 

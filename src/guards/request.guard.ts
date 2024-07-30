@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 export class RequestGuard implements CanActivate{
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
         const request = context.switchToHttp().getRequest<Request>()
-        console.log(request.user)
+        // console.log(request.user)
         return true
     }
 

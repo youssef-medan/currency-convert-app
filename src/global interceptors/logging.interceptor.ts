@@ -9,7 +9,7 @@ export class LoggingInterceptor implements NestInterceptor {
         const now = Date.now();
       return next.handle().pipe(
         map(data => {
-          if (data.transactions && data.transactions.length === 0)  data.transactions = null
+          // if (data.transactions && data.transactions.length === 0)  data.transactions = null
            { data.requestTime = `${Date.now() - now} ms` };
            return data as {}
         }),

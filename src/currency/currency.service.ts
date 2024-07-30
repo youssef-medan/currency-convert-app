@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ConvertCurrencyDto } from './dto/convertCurrency.dto';
 import axios from 'axios';
 import { InjectModel } from '@nestjs/mongoose';
 import { Transaction } from '../schemas/Transaction.schema';
@@ -7,6 +6,12 @@ import { Model } from 'mongoose';
 import { User } from 'src/schemas/User.schema';
 import { CurrencyBeaconService } from './services/CurrencyBeaconService';
 import { TransactionModelService } from './services/TransactionModelService';
+import { ConvertCurrencyDto } from './dto/convertCurrency.dto';
+// import { ConvertCurrencyDto } from 'src/currency/dto/ConvertCurrency.dto';
+
+
+
+
 
 @Injectable()
 export class CurrencyService {

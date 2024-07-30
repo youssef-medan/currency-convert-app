@@ -6,7 +6,6 @@ import {
 import { Model } from 'mongoose';
 import { User } from 'src/schemas/User.schema';
 import { AuthCredentialsDto } from '../dto/AuthCredentials.dto';
-import * as bcrypt from 'bcrypt';
 
 export class ModelService {
   constructor() {}

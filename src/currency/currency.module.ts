@@ -6,10 +6,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from 'src/users/users.module';
 import { CurrencyBeaconService } from './services/CurrencyBeaconService';
 import { TransactionModelService } from './services/TransactionModelService';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports:[
     MongooseModule.forFeature([{ name: Transaction.name, schema: TransactionSchema }]),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     UsersModule
   ],
   controllers: [CurrencyController],

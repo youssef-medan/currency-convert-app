@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
+import { JwtStrategy } from './jwt.strategy';
 
 describe('UsersController', () => {
   let usersController: UsersController;
@@ -27,7 +28,7 @@ describe('UsersController', () => {
             useValue: mockUsersService,
           },
       ],
-    }).compile();
+    }).overrideGuard(JwtStrategy).useValue({canActivate: () => true}).compile();
 
     usersController = module.get<UsersController>(UsersController);
   });

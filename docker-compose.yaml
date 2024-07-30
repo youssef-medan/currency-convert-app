@@ -1,0 +1,53 @@
+
+# services:
+  # mongodb:
+  #   image: mongo
+  #   container_name: mongodb
+  #   restart: always
+  #   networks:
+  #     - zumra_api
+  #   ports:
+  #     - '27017:27017'
+  #   volumes:
+  #     - mongodb_data:/data/db
+
+
+  # rabbitmq:
+  #   image: rabbitmq:3-management
+  #   container_name: rabbitmq
+  #   restart: always
+  #   environment:
+  #     - RABBITMQ_DEFAULT_USER=guest
+  #     - RABBITMQ_DEFAULT_PASS=guest
+  #   networks:
+  #     - zumra_api
+  #   ports:
+  #     - '5672:5672'
+  #     - '15672:15672'
+
+  # .:
+  #   build: .
+  #   restart: always
+  #   # networks:
+  #   #   - currency-convert
+  #   ports:
+  #     - '3000:3000'
+  #   depends_on:
+  #     - email-micro
+  #   volumes:
+  #     - .:/usr/src/app  # Mount the current directory as a volume in the container
+  #     - /usr/src/app/node_modules  # Exclude node_modules from being overridden by the volume
+ 
+  # email-micro:
+  #   build:
+  #     context: ./microservices/email-micro
+  #   ports:
+  #     - "4000:4000"
+  #   environment:
+  #     - SENDGRID_SECRET=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
+# volumes:
+#   mongodb_data:
+
+# networks:
+#   zumra_api:
+#     driver: bridge

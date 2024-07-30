@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { LoggingInterceptor } from './global interceptors/logging.interceptor';
 import { ErrorsInterceptor } from './global interceptors/errors.interceptor';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -26,6 +27,8 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.useGlobalInterceptors(new LoggingInterceptor())
   app.useGlobalInterceptors(new ErrorsInterceptor())
+  app.useGlobalPipes(new ValidationPipe())
+
   await app.listen(3000);
 }
 bootstrap();

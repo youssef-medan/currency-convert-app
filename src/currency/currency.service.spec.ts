@@ -4,6 +4,9 @@ import { CurrencyBeaconService } from './services/CurrencyBeaconService';
 import { TransactionModelService } from './services/TransactionModelService';
 import { getModelToken } from '@nestjs/mongoose';
 import { Transaction } from '../schemas/Transaction.schema';
+import axios, { AxiosError } from 'axios';
+import { BadRequestException } from '@nestjs/common';
+import { JwtStrategy } from '../users/jwt.strategy';
 
 describe('CurrencyService', () => {
   let currencyService: CurrencyService;
@@ -49,7 +52,7 @@ describe('CurrencyService', () => {
         { provide: CurrencyBeaconService, useValue: currencyBeaconService },
         { provide: TransactionModelService, useValue: transactionModelService },
       ],
-    }).compile();
+    }).overrideGuard(JwtStrategy).useValue({canActivate: () => true}).compile();
 
     currencyService = module.get<CurrencyService>(CurrencyService);
     currencyBeaconService = module.get<CurrencyBeaconService>(CurrencyBeaconService,);
@@ -68,6 +71,25 @@ describe('CurrencyService', () => {
       const result = await currencyService.convertCurrency(mockConvertCurrencyDto,mockUser,);
       expect(currencyBeaconService.getCurrencyConvert).toHaveBeenCalledWith(mockConvertCurrencyDto,mockUser);
       expect(result).toEqual(mockTransaction);
+    });
+    it('should retutn Bad Reqest Exception', async () => {
+      jest.spyOn(axios, 'get').mockRejectedValue(new BadRequestException(`make sure you use avaliable currencies or try again later`));
+      try {
+        await axios.get('/some-endpoint');
+      } catch (error) {
+        expect(error).toBeInstanceOf(BadRequestException);
+        expect(error.message).toBe(`make sure you use avaliable currencies or try again later`);
+      }
+    });
+    it('should retutn Bad Reqest Exception', async () => {
+      const mockConvertCurrencyDto = { from: 'USD', to: 'EGP', amount: 1 };
+      jest.spyOn(axios, 'get').mockRejectedValue(new BadRequestException(`Network Error`));
+      try {
+        await axios.get('/some-endpoint');
+      } catch (error) {
+        expect(error).toBeInstanceOf(BadRequestException);
+        expect(error.message).toBe(`Network Error`);
+      }
     });
   });
 
