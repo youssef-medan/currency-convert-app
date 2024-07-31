@@ -27,7 +27,7 @@ export class UsersController {
     return this.usersService.signin(authCredentialsDto);
   }
 
-  @Get('/forgetpassword')
+  @Post('/forgetpassword')
   @ApiOkResponse({description:'Check your email for password reset instructions'})
   @ApiNotFoundResponse({description:'No User Found'})
   forgetPassword(@Body()  forgetPasswordDto:ForgetPasswordDto) {
